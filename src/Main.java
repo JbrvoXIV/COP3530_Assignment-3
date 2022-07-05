@@ -53,6 +53,25 @@ public class Main {
         return maxDiffLetter;
     }
 
+    public static boolean isAPotentialPalindrome(String str) { // PROG PART 2
+
+        HashMap<Character, Integer> letterCount = new HashMap<>();
+        int oddCounter = 0;
+
+        for(int i = 0; i < str.length(); i++) { // ADD CHARACTER'S WITH COUNTER INTO MAP
+            char letter = str.charAt(i);
+            if(!letterCount.containsKey(letter))
+                letterCount.put(letter, 0);
+            letterCount.put(letter, letterCount.get(letter) + 1);
+        }
+
+        for(int count : letterCount.values()) { // CHECK EACH VALUE AND INCREMENT ODD COUNTER IF ODD VALUE FOUND
+            oddCounter += count % 2 != 0 ? 1 : 0;
+        }
+
+        return oddCounter <= 1; // RETURN FALSE IF ODDCOUNTER GREATER THAN 1, NO PALINDROMES CAN BE FORMED IF MORE THAN ONE ODD AMOUNT OF CHARACTERS IN STRING
+    }
+
     public static int sumOfUniqueElements(int[] arr) { // PROG PART 3
 
         HashMap<Integer, Integer> valueUniqueness = new HashMap<>();
@@ -73,14 +92,20 @@ public class Main {
     }
 
     public static void main(String[] args) {
+        // findDistinguishingChar test
         System.out.println("Character with highest difference of appearance in both strings: " + findDistinguishingChar("apple", "pale"));
 
+        // isAPotentialPalindrome setup and test
+        System.out.println("Potential Palindrome test for racecarr: " + isAPotentialPalindrome("racecarr"));
+
+        // sumOfUniqueElements setup and test
         Random rnd = new Random();
         int[] arr = new int[20];
         for(int i = 0; i < 20; i++) {
             arr[i] = rnd.nextInt(10);
             System.out.printf("%d,", arr[i]);
         }
-        System.out.println("\n" + sumOfUniqueElements(arr));
+
+        System.out.println("\nSum of Unique Elements: " + sumOfUniqueElements(arr));
     }
 }
